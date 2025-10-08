@@ -2,10 +2,11 @@
 import express from "express";
 import { booksRouter } from "./routes/books";
 import swaggerUi from "swagger-ui-express";
-import { specs } from "../swaggerConfig";
+import { specs } from "../swagger";
 
 const app = express();
 
+// Swagger UI endpoint
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 app.use("/books", booksRouter);
 

@@ -4,7 +4,7 @@ import { getBooks } from "../controllers/books";
 export const booksRouter = Router();
 
 /**
- * @swagger
+ * @openapi
  * /books:
  *   get:
  *     summary: Retrieve a list of books
@@ -26,7 +26,7 @@ export const booksRouter = Router();
 booksRouter.get("/", getBooks);
 
 /**
- * @swagger
+ * @openapi
  * /books:
  *   post:
  *     summary: Save a book
@@ -50,7 +50,7 @@ booksRouter.post("/", (req, res) => {
 });
 
 /**
- * @swagger
+ * @openapi
  * /books:
  *   patch:
  *     summary: Update a book
@@ -74,7 +74,7 @@ booksRouter.patch("/", (req, res) => {
 });
 
 /**
- * @swagger
+ * @openapi
  * /books:
  *   delete:
  *     summary: Delete a book
