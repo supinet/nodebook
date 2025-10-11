@@ -85,9 +85,7 @@ booksRouter.get("/:id", booksController.getBookById);
  *           description: The book name.
  * */
 booksRouter.post("/", (req, res) => {
-  const payload = req.body;
-  const book = booksController.createBook(payload);
-  res.send("POST request to books endpoint");
+  booksController.createBook(req, res);
 });
 
 /**

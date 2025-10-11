@@ -16,10 +16,9 @@ class BookService {
   }
 
   createBook(newBook: any) {
-    const books = fs.readFileSync("books.json", "utf-8");
+    const books = JSON.parse(fs.readFileSync("books.json", "utf-8"));
     const newBooks = [...books, newBook];
-    const newBooksDb = fs.writeFileSync("books.json", JSON.stringify(newBooks));
-    return newBooksDb;
+    fs.writeFileSync("books.json", JSON.stringify(newBooks));
   }
 }
 

@@ -19,9 +19,10 @@ class BooksController {
     res.send(livro);
   }
 
-  createBook(payload: any) {
+  createBook(req: any, res: any) {
+    const payload = req.body;
     const book = booksService.createBook(payload);
-    return book;
+    res.send(book);
   }
 }
 
