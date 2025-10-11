@@ -27,6 +27,35 @@ booksRouter.get("/", booksController.getBooks);
 
 /**
  * @openapi
+ * /books/{id}:
+ *   get:
+ *     summary: Retrieve a book
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: integer
+ *          required: true
+ *          description: The book ID.
+ *     responses:
+ *       200:
+ *         description: A book.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: string
+ *                   name:
+ *                     type: string
+ */
+booksRouter.get("/:id", booksController.getBookById);
+
+/**
+ * @openapi
  * /books:
  *   post:
  *     summary: Save a book
