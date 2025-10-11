@@ -65,4 +65,44 @@ group by
 order by
 	employee;
 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+with recursive employee_hierarchy as (
+-- Base case: start with all employees
+select
+	w.id,
+	w.employee_name,
+	w.manager_id,
+	w.manager_name,
+	w.id as root_id,
+	w.employee_name as root_employee,
+	w.manager_id as current_manager_id
+from
+	public.workday w
+union all
+-- Recursive step: find the manager based on ID
+select
+	eh.id,
+	eh.employee_name,
+	w.manager_id,
+	w.manager_name,
+	eh.root_id,
+	eh.root_employee,
+	w.manager_id as current_manager_id
+from
+	employee_hierarchy eh
+join workday w
+        on
+	w.id = eh.manager_id
+)
+select
+	e.root_employee as employee,
+	STRING_AGG(e.manager_name, ' -> ' order by e.id) as management_chain
+from
+	employee_hierarchy e
+where
+	e.employee_name is not null
+group by
+	e.root_employee
+order by
+	e.root_employee;
