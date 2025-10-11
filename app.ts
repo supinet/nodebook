@@ -6,6 +6,8 @@ import { specs } from "./swagger";
 
 const app = express();
 
+app.use(express.json());
+
 // Swagger UI endpoint
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 app.use("/books", booksRouter);

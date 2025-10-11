@@ -18,6 +18,11 @@ class BooksController {
     const livro = booksService.getBookById(id);
     res.send(livro);
   }
+
+  createBook(payload: any) {
+    const book = booksService.createBook(payload);
+    return book;
+  }
 }
 
 export default new BooksController();

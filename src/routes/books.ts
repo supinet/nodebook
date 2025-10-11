@@ -43,7 +43,7 @@ booksRouter.get("/", booksController.getBooks);
  *         content:
  *           application/json:
  *             schema:
- *               type: object
+ *               type: array
  *               items:
  *                 type: object
  *                 properties:
@@ -57,24 +57,36 @@ booksRouter.get("/:id", booksController.getBookById);
 /**
  * @openapi
  * /books:
- *   post:
- *     summary: Save a book
- *     responses:
- *       200:
- *         description: A object of book.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: string
- *                   name:
- *                     type: string
- */
+ *    post:
+ *      summary: Creates a new book.
+ *      requestBody:
+ *        description: Optional description in *Markdown*
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Book'
+ *              description: Creates a new book.
+ *      responses:
+ *        201:
+ *        description: Created
+ *
+ * components:
+ *   schemas:
+ *     Book:
+ *       type: object
+ *       required: true
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: The book ID.
+ *         name:
+ *           type: string
+ *           description: The book name.
+ * */
 booksRouter.post("/", (req, res) => {
+  const payload = req.body;
+  const book = booksController.createBook(payload);
   res.send("POST request to books endpoint");
 });
 

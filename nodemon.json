@@ -1,6 +1,6 @@
 {
   "watch": ["src"],
-  "ext": ".ts,.js",
+  "ext": ".ts,.js,.yaml",
   "ignore": [],
-  "exec": "tsc && node dist/app.js"
+  "exec": "tsc && cp -R docs dist/docs && node dist/app.js"
 }

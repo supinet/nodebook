@@ -12,6 +12,6 @@
     "outDir": "dist"
   },
 
-  "include": ["src/**/*", "app.ts"],
+  "include": ["src/**/*", "docs/openapi.yaml", "app.ts"],
   "exclude": ["node_modules"]
 }
