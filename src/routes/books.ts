@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getBooks } from "../controllers/books";
+import booksController from "../controllers/books";
 
 export const booksRouter = Router();
 
@@ -23,7 +23,7 @@ export const booksRouter = Router();
  *                   name:
  *                     type: string
  */
-booksRouter.get("/", getBooks);
+booksRouter.get("/", booksController.getBooks);
 
 /**
  * @openapi
@@ -97,4 +97,4 @@ booksRouter.delete("/", (req, res) => {
   res.send("DELETE request to books endpoint");
 });
 
-module.exports = { booksRouter };
+module.exports = { booksRouter: booksRouter };

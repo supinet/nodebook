@@ -1,8 +1,8 @@
 // @ts-check
 import express from "express";
-import { booksRouter } from "./routes/books";
+import { booksRouter } from "./src/routes/books";
 import swaggerUi from "swagger-ui-express";
-import { specs } from "../swagger";
+import { specs } from "./swagger";
 
 const app = express();
 
