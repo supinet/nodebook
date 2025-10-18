@@ -19,7 +19,7 @@ export const booksRouter = Router();
  *                 type: object
  *                 properties:
  *                   id:
- *                     type: string
+ *                     type: integer
  *                   name:
  *                     type: string
  */
@@ -78,7 +78,7 @@ booksRouter.get("/:id", booksController.getBookById);
  *       required: true
  *       properties:
  *         id:
- *           type: string
+ *           type: integer
  *           description: The book ID.
  *         name:
  *           type: string
@@ -90,50 +90,67 @@ booksRouter.post("/", (req, res) => {
 
 /**
  * @openapi
- * /books:
- *   patch:
- *     summary: Update a book
- *     responses:
- *       200:
- *         description: A object of book.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: string
- *                   name:
- *                     type: string
+ * /books/{id}:
+ *  parameters:
+ *    - name: id
+ *      in: path
+ *      required: true
+ *      schema:
+ *        type: integer
+ *      description: The ID of the book to update.
+ *  patch:
+ *    summary: Partially update a book
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Book'
+ *            description: update a existing book.
+ *    responses:
+ *      '200':
+ *        description: Book updated successfully
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Book'
+ *      '400':
+ *        description: Invalid JSON Patch document or operation
+ *      '404':
+ *        description: Book not found
+ *
+ * components:
+ *   schemas:
+ *     Book:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
  */
-booksRouter.patch("/", (req, res) => {
-  res.send("PATCH request to books endpoint");
+booksRouter.patch("/:id", (req, res) => {
+  booksController.updateBook(req, res);
 });
 
 /**
  * @openapi
- * /books:
- *   delete:
- *     summary: Delete a book
- *     responses:
- *       200:
- *         description: A object of book.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: string
- *                   name:
- *                     type: string
+ * /books/{id}:
+ *  parameters:
+ *    - name: id
+ *      in: path
+ *      required: true
+ *      schema:
+ *        type: integer
+ *      description: The ID of the book to update.
+ *  delete:
+ *    summary: Delete update a book
+ *    responses:
+ *      '200':
+ *        description: Book removed successfully
+ *      '404':
+ *        description: Book not found
  */
-booksRouter.delete("/", (req, res) => {
-  res.send("DELETE request to books endpoint");
+booksRouter.delete("/:id", (req, res) => {
+  booksController.deleteBook(req, res);
 });
 
 module.exports = { booksRouter: booksRouter };
