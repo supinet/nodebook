@@ -1,11 +1,12 @@
 // @ts-check
 import express from "express";
-import { booksRouter } from "./src/routes/books";
+import cors from "cors";
 import swaggerUi from "swagger-ui-express";
+import { booksRouter } from "./src/routes/books";
 import { specs } from "./swagger";
 
 const app = express();
-
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 
 // Swagger UI endpoint
